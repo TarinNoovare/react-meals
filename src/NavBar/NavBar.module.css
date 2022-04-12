@@ -6,6 +6,10 @@
     align-items: center;
     background-color: brown;
     color: white;
+    position: -webkit-sticky;
+    /* Safari */
+    position: sticky;
+    top: 0;
 }
 
 .cart-summary {
