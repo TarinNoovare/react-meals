@@ -1,0 +1,50 @@
+.menu {
+    margin: 0 2rem;
+    padding: 1rem 2rem;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.menu>h2 {
+    margin: 0;
+}
+
+.menu>ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.menu li {
+    display: flex;
+    padding-top: 0.5rem;
+    padding-bottom: 0.8rem;
+    justify-content: space-between;
+    border-bottom: 0.05rem solid rgb(201, 201, 201);
+}
+
+.description {
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.phrase {
+    font-weight: 200;
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+.price {
+    font-weight: 600;
+    color: rgb(222, 163, 0);
+}

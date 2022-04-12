@@ -1,0 +1,16 @@
+.open-phrase {
+    margin: 0 6rem;
+    padding: 1rem 2rem;
+    border-radius: 20px;
+    background-color: rgb(143, 143, 143);
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.open-phrase>h2 {
+    margin: 0;
+}
+
+.open-phrase>p {
+    margin: 0;
+}
