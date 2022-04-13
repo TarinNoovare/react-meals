@@ -1,38 +1,11 @@
 import styles from "./Menu.module.css";
 
+import { useContext } from "react";
+
+import CartContext from "../context/cart-context";
+
 export const Menu = () => {
-  const menuList = [
-    {
-      id: 0,
-      title: "Shushi",
-      phrase: "Delicious Shushi U wanna Try",
-      price: 28.9,
-    },
-    {
-      id: 1,
-      title: "Fried Rice",
-      phrase: "Rice with Fried, You know it...",
-      price: 10.7,
-    },
-    {
-      id: 2,
-      title: "Fried Rice",
-      phrase: "Rice with Fried, You know it...",
-      price: 10.7,
-    },
-    {
-      id: 3,
-      title: "Fried Rice",
-      phrase: "Rice with Fried, You know it...",
-      price: 10.7,
-    },
-    {
-      id: 4,
-      title: "Fried Rice",
-      phrase: "Rice with Fried, You know it...",
-      price: 10.7,
-    },
-  ];
+  const { menuList } = useContext(CartContext);
 
   return (
     <section className={styles["menu"]}>
@@ -47,21 +20,15 @@ export const Menu = () => {
                 <div className={styles["price"]}>{`$${menu.price}`}</div>
               </div>
               <div className={styles["add-to-cart"]}>
-                <div>Add</div>
+                <div className={styles["amount"]}>
+                  <label>Amount</label>
+                  <input type="number" />
+                </div>
+                <button type="submit">+ Add</button>
               </div>
             </li>
           );
         })}
-        {/* <li>
-          <div className={styles["description"]}>
-            <div className={styles["title"]}>Shushi</div>
-            <div className={styles["phrase"]}>Delicious Shushi U wanna Try</div>
-            <div className={styles["price"]}>$28.90</div>
-          </div>
-          <div className={styles["add-to-cart"]}>
-            <div>Add</div>
-          </div>
-        </li> */}
       </ul>
     </section>
   );
