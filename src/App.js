@@ -1,51 +1,61 @@
 import "./App.css";
+import { useState, useEffect } from "react";
 import { NavBar } from "./NavBar/NavBar";
 import { OpenPhrase } from "./OpenPhrase/OpenPhrase";
 import { Menu } from "./Menu/Menu";
 import CartContext from "./context/cart-context";
 
 function App() {
-  const menuList = [
-    {
-      id: 0,
+  const menuList = {
+    0: {
       title: "Sushi",
       phrase: "Delicious Shushi U wanna Try",
       price: 28.99,
       amount: 0,
     },
-    {
-      id: 1,
+    1: {
       title: "Fried Rice",
       phrase: "Rice with Fried, You know it...",
       price: 10.99,
       amount: 0,
     },
-    {
-      id: 2,
+    2: {
       title: "Green Bowl",
       phrase: "Healthy and Green",
       price: 18.99,
       amount: 0,
     },
-    {
-      id: 3,
+    3: {
       title: "Barbecue Burger",
       phrase: "American, Raw, Meaty",
       price: 12.99,
       amount: 0,
     },
-    {
-      id: 4,
+    4: {
       title: "Schnitzel",
       phrase: "A German Specialty",
       price: 16.99,
       amount: 0,
     },
-  ];
+  };
+
+  const [currentInCart, setCurrentInCart] = useState(menuList);
+  
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      console.log("Current In Cart");
+      console.log(currentInCart);
+    }, 1000);
+    return () => {
+      clearTimeout(identifier);
+    };
+  }, [currentInCart]);
 
   return (
     <div className="App">
-      <CartContext.Provider value={{ menuList }}>
+      <CartContext.Provider
+        value={{ menuList, currentInCart, setCurrentInCart }}
+      >
         <NavBar />
         <OpenPhrase />
         <Menu />
