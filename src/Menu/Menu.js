@@ -19,30 +19,30 @@ export const Menu = (props) => {
     };
   }, [currentMenuSelect]);
 
-  const inputMenuHandler = (key, title, phrase, price, event) => {
+  const inputMenuHandler = (key, event) => {
     const enterdAmount = event.target.value;
     setCurrentMenuSelect((prevState) => {
       return {
         ...prevState,
         [key]: {
-          title: title,
-          phrase: phrase,
-          price: price,
+          title: prevState[key]["title"],
+          phrase: prevState[key]["phrase"],
+          price: prevState[key]["price"],
           amount: enterdAmount ? parseInt(enterdAmount) : 0,
         },
       };
     });
   };
 
-  const addToCartHandler = (key, title, phrase, price, amount) => {
+  const addToCartHandler = (key) => {
     setCurrentInCart((prevState) => {
       return {
         ...prevState,
         [key]: {
-          title: title,
-          phrase: phrase,
-          price: price,
-          amount: amount,
+          title: prevState[key]["title"],
+          phrase: prevState[key]["phrase"],
+          price: prevState[key]["price"],
+          amount: prevState[key]["amount"] + currentMenuSelect[key]["amount"],
         },
       };
     });
@@ -51,9 +51,9 @@ export const Menu = (props) => {
       return {
         ...prevState,
         [key]: {
-          title: title,
-          phrase: phrase,
-          price: price,
+          title: prevState[key]["title"],
+          phrase: prevState[key]["phrase"],
+          price: prevState[key]["price"],
           amount: 0,
         },
       };
@@ -75,26 +75,10 @@ export const Menu = (props) => {
             <input
               type="number"
               value={value.amount}
-              onChange={inputMenuHandler.bind(
-                this,
-                key,
-                value.title,
-                value.phrase,
-                value.price
-              )}
+              onChange={inputMenuHandler.bind(this, key)}
             />
           </div>
-          <button
-            type="submit"
-            onClick={addToCartHandler.bind(
-              this,
-              key,
-              value.title,
-              value.phrase,
-              value.price,
-              value.amount
-            )}
-          >
+          <button type="submit" onClick={addToCartHandler.bind(this, key)}>
             + Add
           </button>
         </div>
