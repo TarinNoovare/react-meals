@@ -5,17 +5,17 @@ import { useContext, useEffect, useState } from "react";
 import CartContext from "../context/cart-context";
 
 export const NavBar = () => {
-  const { menuList } = useContext(CartContext);
+  const {currentInCart } = useContext(CartContext);
 
   const [numberOfCart, setNumberOfCart] = useState(0);
 
   useEffect(() => {
-    const totalCart = menuList
-      .map((em) => em.amount)
-      .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
-
-    setNumberOfCart(totalCart);
-  }, [menuList]);
+    let totalAmount = 0;
+    for (const [_, value] of Object.entries(currentInCart)) {
+      totalAmount += value.amount;
+      setNumberOfCart(totalAmount);
+    }
+  }, [currentInCart]);
 
   return (
     <nav className={styles["nav-bar-and-cart-summary"]}>
