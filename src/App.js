@@ -5,6 +5,7 @@ import { OpenPhrase } from "./OpenPhrase/OpenPhrase";
 import { Menu } from "./Menu/Menu";
 import { CartSummary } from "./CartSummary/CartSummary";
 import { ErrorModal } from "./ErrorModal/ErrorModal";
+
 import CartContext from "./context/cart-context";
 
 function App() {

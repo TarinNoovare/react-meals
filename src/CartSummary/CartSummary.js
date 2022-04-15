@@ -1,11 +1,13 @@
 import styles from "./CartSummary.module.css";
 
 import ReactDOM from "react-dom";
-import { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 import CartContext from "../context/cart-context";
 
 export const CartSummary = () => {
+  const [totalAmount, setTotalAmount] = useState(0);
+
   const {
     menuList,
     currentInCart,
@@ -15,9 +17,23 @@ export const CartSummary = () => {
     numberOfCart,
   } = useContext(CartContext);
 
+  useEffect(() => {
+    let totalAmountTem = 0;
+    for (const [key, value] of Object.entries(currentInCart)) {
+      totalAmountTem += value.amount * value.price;
+    }
+    setTotalAmount(Math.round(totalAmountTem * 100) / 100);
+  }, [currentInCart]);
+
   const clearCartHandler = () => {
     setCurrentInCart(menuList);
     setShowCartSummary(false);
+  };
+
+  const submitCartHandler = () => {
+    window.location.reload(false);
+    // setCurrentInCart(menuList);
+    // setShowCartSummary(false);
   };
 
   const selectedMenuComponents = [];
@@ -62,13 +78,31 @@ export const CartSummary = () => {
       >
         <h3>React Meals Cart Summary</h3>
         {numberOfCart !== 0 ? (
-          <ul>{selectedMenuComponents}</ul>
+          <React.Fragment>
+            <ul>
+              {selectedMenuComponents}
+              <li className={styles["total-amount"]}>{totalAmount}</li>
+            </ul>
+            <div className={styles["buttons-container"]}>
+              <button
+                className={styles["clear-button"]}
+                onClick={clearCartHandler}
+              >
+                Clear Cart
+              </button>
+              <button
+                className={styles["submit-button"]}
+                onClick={submitCartHandler}
+              >
+                Send Menu
+              </button>
+            </div>
+          </React.Fragment>
         ) : (
           <h4 style={{ textAlign: "center" }}>
             None of the Menu Has Been Selected.
           </h4>
         )}
-        <button onClick={clearCartHandler}>Clear Cart</button>
       </div>
     </div>
   );

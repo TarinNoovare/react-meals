@@ -17,8 +17,13 @@ export const ErrorModal = () => {
         setShowErrorModal("");
       }}
     >
-      <div className={styles["error-modal-content"]}>
-        Error Occured!
+      <div
+        className={styles["error-modal-content"]}
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      >
+        An Error Occured!
         <div>{showErrorModal}</div>
       </div>
     </div>
