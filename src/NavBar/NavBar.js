@@ -1,26 +1,30 @@
 import styles from "./NavBar.module.css";
 import CartImage from "../resources/images/cart.svg";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 
 import CartContext from "../context/cart-context";
 
 export const NavBar = () => {
-  const {currentInCart } = useContext(CartContext);
-
-  const [numberOfCart, setNumberOfCart] = useState(0);
+  const { currentInCart, setShowCartSummary, numberOfCart, setNumberOfCart } =
+    useContext(CartContext);
 
   useEffect(() => {
     let totalAmount = 0;
-    for (const [_, value] of Object.entries(currentInCart)) {
+    for (const [, value] of Object.entries(currentInCart)) {
       totalAmount += value.amount;
       setNumberOfCart(totalAmount);
     }
-  }, [currentInCart]);
+  }, [currentInCart, setNumberOfCart]);
 
   return (
     <nav className={styles["nav-bar-and-cart-summary"]}>
       <h1>ReactMeals</h1>
-      <div className={styles["cart-summary"]}>
+      <div
+        className={styles["cart-summary"]}
+        onClick={() => {
+          setShowCartSummary(true);
+        }}
+      >
         <img src={CartImage} alt="" />
         <div>Your Cart</div>
         <div className={`${styles["cart-summary"]} ${styles["number-cart"]}`}>

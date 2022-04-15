@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { NavBar } from "./NavBar/NavBar";
 import { OpenPhrase } from "./OpenPhrase/OpenPhrase";
 import { Menu } from "./Menu/Menu";
+import { CartSummary } from "./CartSummary/CartSummary";
 import CartContext from "./context/cart-context";
 
 function App() {
@@ -40,7 +41,9 @@ function App() {
   };
 
   const [currentInCart, setCurrentInCart] = useState(menuList);
-  
+  const [showCartSummary, setShowCartSummary] = useState(false);
+  const [numberOfCart, setNumberOfCart] = useState(0);
+
   useEffect(() => {
     const identifier = setTimeout(() => {
       console.log("Current In Cart");
@@ -54,11 +57,20 @@ function App() {
   return (
     <div className="App">
       <CartContext.Provider
-        value={{ menuList, currentInCart, setCurrentInCart }}
+        value={{
+          menuList,
+          currentInCart,
+          setCurrentInCart,
+          showCartSummary,
+          setShowCartSummary,
+          numberOfCart,
+          setNumberOfCart,
+        }}
       >
         <NavBar />
         <OpenPhrase />
         <Menu />
+        <CartSummary />
       </CartContext.Provider>
     </div>
   );
