@@ -5,7 +5,8 @@ import { useContext, useState, useEffect } from "react";
 import CartContext from "../context/cart-context";
 
 export const Menu = (props) => {
-  const { menuList, setCurrentInCart } = useContext(CartContext);
+  const { menuList, setCurrentInCart, setShowErrorModal } =
+    useContext(CartContext);
 
   const [currentMenuSelect, setCurrentMenuSelect] = useState(menuList);
 
@@ -20,7 +21,8 @@ export const Menu = (props) => {
   }, [currentMenuSelect]);
 
   const inputMenuHandler = (key, event) => {
-    const enterdAmount = event.target.value;
+    const enterdAmount = event.target.value ? parseInt(event.target.value) : 0;
+
     setCurrentMenuSelect((prevState) => {
       return {
         ...prevState,
@@ -28,36 +30,40 @@ export const Menu = (props) => {
           title: prevState[key]["title"],
           phrase: prevState[key]["phrase"],
           price: prevState[key]["price"],
-          amount: enterdAmount ? parseInt(enterdAmount) : 0,
+          amount: enterdAmount,
         },
       };
     });
   };
 
   const addToCartHandler = (key) => {
-    setCurrentInCart((prevState) => {
-      return {
-        ...prevState,
-        [key]: {
-          title: prevState[key]["title"],
-          phrase: prevState[key]["phrase"],
-          price: prevState[key]["price"],
-          amount: prevState[key]["amount"] + currentMenuSelect[key]["amount"],
-        },
-      };
-    });
+    if (currentMenuSelect[key]["amount"] > 0) {
+      setCurrentInCart((prevState) => {
+        return {
+          ...prevState,
+          [key]: {
+            title: prevState[key]["title"],
+            phrase: prevState[key]["phrase"],
+            price: prevState[key]["price"],
+            amount: prevState[key]["amount"] + currentMenuSelect[key]["amount"],
+          },
+        };
+      });
 
-    setCurrentMenuSelect((prevState) => {
-      return {
-        ...prevState,
-        [key]: {
-          title: prevState[key]["title"],
-          phrase: prevState[key]["phrase"],
-          price: prevState[key]["price"],
-          amount: 0,
-        },
-      };
-    });
+      setCurrentMenuSelect((prevState) => {
+        return {
+          ...prevState,
+          [key]: {
+            title: prevState[key]["title"],
+            phrase: prevState[key]["phrase"],
+            price: prevState[key]["price"],
+            amount: 0,
+          },
+        };
+      });
+    } else {
+      setShowErrorModal("Amount cannot be less than 0");
+    }
   };
 
   const menuListComponent = [];

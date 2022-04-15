@@ -4,6 +4,7 @@ import { NavBar } from "./NavBar/NavBar";
 import { OpenPhrase } from "./OpenPhrase/OpenPhrase";
 import { Menu } from "./Menu/Menu";
 import { CartSummary } from "./CartSummary/CartSummary";
+import { ErrorModal } from "./ErrorModal/ErrorModal";
 import CartContext from "./context/cart-context";
 
 function App() {
@@ -44,6 +45,8 @@ function App() {
   const [showCartSummary, setShowCartSummary] = useState(false);
   const [numberOfCart, setNumberOfCart] = useState(0);
 
+  const [showErrorModal, setShowErrorModal] = useState("");
+
   useEffect(() => {
     const identifier = setTimeout(() => {
       console.log("Current In Cart");
@@ -65,12 +68,15 @@ function App() {
           setShowCartSummary,
           numberOfCart,
           setNumberOfCart,
+          showErrorModal,
+          setShowErrorModal,
         }}
       >
         <NavBar />
         <OpenPhrase />
         <Menu />
         <CartSummary />
+        <ErrorModal />
       </CartContext.Provider>
     </div>
   );
