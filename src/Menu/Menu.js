@@ -5,7 +5,7 @@ import { useContext, useState, useEffect } from "react";
 import CartContext from "../context/cart-context";
 
 export const Menu = (props) => {
-  const { menuList, setCurrentInCart, setShowErrorModal } =
+  const { menuList, currentInCart, setCurrentInCart, setShowErrorModal } =
     useContext(CartContext);
 
   const [currentMenuSelect, setCurrentMenuSelect] = useState(menuList);
@@ -37,7 +37,14 @@ export const Menu = (props) => {
   };
 
   const addToCartHandler = (key) => {
-    if (currentMenuSelect[key]["amount"] > 0) {
+    if (currentMenuSelect[key]["amount"] < 0) {
+      setShowErrorModal("Amount cannot be less than 0");
+    } else if (
+      currentMenuSelect[key]["amount"] + currentInCart[key]["amount"] >
+      99
+    ) {
+      setShowErrorModal("Amount for Each Menu cannot exceed 99");
+    } else {
       setCurrentInCart((prevState) => {
         return {
           ...prevState,
@@ -61,8 +68,6 @@ export const Menu = (props) => {
           },
         };
       });
-    } else {
-      setShowErrorModal("Amount cannot be less than 0");
     }
   };
 
