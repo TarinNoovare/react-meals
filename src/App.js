@@ -48,6 +48,8 @@ function App() {
 
   const [showErrorModal, setShowErrorModal] = useState("");
 
+  const [addCartAnimation, setAddCartAnimation] = useState(false);
+
   useEffect(() => {
     const identifier = setTimeout(() => {
       console.log("Current In Cart");
@@ -71,6 +73,8 @@ function App() {
           setNumberOfCart,
           showErrorModal,
           setShowErrorModal,
+          addCartAnimation,
+          setAddCartAnimation,
         }}
       >
         <NavBar />
