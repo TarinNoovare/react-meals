@@ -11,7 +11,7 @@ function App() {
   const menuList = {
     0: {
       title: "Sushi",
-      phrase: "Delicious Shushi U wanna Try",
+      phrase: "Delicious Sushi U wanna Try",
       price: 28.99,
       amount: 0,
     },
