@@ -42,7 +42,8 @@ export const Menu = (props) => {
   };
 
   const addToCartHandler = (key) => {
-    if (currentMenuSelect[key]["amount"] <= 0) {
+    if (currentInCart[key]["amount"] === 99) {
+    } else if (currentMenuSelect[key]["amount"] <= 0) {
       setShowErrorModal("Amount must be more than 0");
     } else if (
       currentMenuSelect[key]["amount"] + currentInCart[key]["amount"] >
@@ -95,7 +96,13 @@ export const Menu = (props) => {
               onChange={inputMenuHandler.bind(this, key)}
             />
           </div>
-          <button type="submit" onClick={addToCartHandler.bind(this, key)}>
+          <button
+            type="submit"
+            onClick={addToCartHandler.bind(this, key)}
+            className={`${
+              currentInCart[key]["amount"] < 99 ? "" : styles["unable"]
+            }`}
+          >
             + Add
           </button>
         </div>

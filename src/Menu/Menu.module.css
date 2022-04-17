@@ -71,6 +71,11 @@
     background-color: #7adc7d;
 }
 
+.add-to-cart button.unable,
+.add-to-cart button.unable:hover {
+    background-color: gray;
+}
+
 .amount {
     display: flex;
     align-items: center;

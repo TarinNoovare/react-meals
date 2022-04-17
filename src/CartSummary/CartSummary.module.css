@@ -128,3 +128,15 @@
     justify-content: center;
     align-items: center;
 }
+
+.remove {
+    background-color: red;
+}
+
+.add {
+    background-color: green;
+}
+
+.unable {
+    background-color: gray;
+}

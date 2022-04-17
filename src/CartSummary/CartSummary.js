@@ -35,20 +35,22 @@ export const CartSummary = () => {
   };
 
   const appendItemHandler = (key) => {
-    setCurrentInCart((prevState) => {
-      return {
-        ...prevState,
-        [key]: {
-          title: prevState[key]["title"],
-          phrase: prevState[key]["phrase"],
-          price: prevState[key]["price"],
-          amount: prevState[key]["amount"] + 1,
-        },
-      };
-    });
+    if (currentInCart[key]["amount"] < 99) {
+      setCurrentInCart((prevState) => {
+        return {
+          ...prevState,
+          [key]: {
+            title: prevState[key]["title"],
+            phrase: prevState[key]["phrase"],
+            price: prevState[key]["price"],
+            amount: prevState[key]["amount"] + 1,
+          },
+        };
+      });
+    }
   };
 
-  const deleteItemHandler = (key) => {
+  const removeItemHandler = (key) => {
     setCurrentInCart((prevState) => {
       return {
         ...prevState,
@@ -84,13 +86,15 @@ export const CartSummary = () => {
           </div>
           <div className={styles["adjust-cart"]}>
             <button
-              style={{ backgroundColor: "red" }}
-              onClick={deleteItemHandler.bind(this, key)}
+              className={styles["remove"]}
+              onClick={removeItemHandler.bind(this, key)}
             >
               -
             </button>
             <button
-              style={{ backgroundColor: "green" }}
+              className={`${styles["add"]} ${
+                value.amount < 99 ? "" : styles["unable"]
+              }`}
               onClick={appendItemHandler.bind(this, key)}
             >
               +
