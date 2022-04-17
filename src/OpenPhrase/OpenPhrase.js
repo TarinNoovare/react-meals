@@ -1,6 +1,7 @@
-import styles from "./OpenPhrase.module.css"
+import styles from "./OpenPhrase.module.css";
+import React from "react";
 
-export const OpenPhrase = () => {
+const OpenPhrase = () => {
   return (
     <section className={styles["open-phrase"]}>
       <h2>React Meals</h2>
@@ -14,3 +15,5 @@ export const OpenPhrase = () => {
     </section>
   );
 };
+
+export default React.memo(OpenPhrase);

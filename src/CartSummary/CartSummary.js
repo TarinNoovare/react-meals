@@ -19,7 +19,7 @@ export const CartSummary = () => {
 
   useEffect(() => {
     let totalAmountTem = 0;
-    for (const [key, value] of Object.entries(currentInCart)) {
+    for (const [, value] of Object.entries(currentInCart)) {
       totalAmountTem += value.amount * value.price;
     }
     setTotalAmount(Math.round(totalAmountTem * 100) / 100);
@@ -32,8 +32,34 @@ export const CartSummary = () => {
 
   const submitCartHandler = () => {
     window.location.reload(false);
-    // setCurrentInCart(menuList);
-    // setShowCartSummary(false);
+  };
+
+  const appendItemHandler = (key) => {
+    setCurrentInCart((prevState) => {
+      return {
+        ...prevState,
+        [key]: {
+          title: prevState[key]["title"],
+          phrase: prevState[key]["phrase"],
+          price: prevState[key]["price"],
+          amount: prevState[key]["amount"] + 1,
+        },
+      };
+    });
+  };
+
+  const deleteItemHandler = (key) => {
+    setCurrentInCart((prevState) => {
+      return {
+        ...prevState,
+        [key]: {
+          title: prevState[key]["title"],
+          phrase: prevState[key]["phrase"],
+          price: prevState[key]["price"],
+          amount: prevState[key]["amount"] - 1,
+        },
+      };
+    });
   };
 
   const selectedMenuComponents = [];
@@ -55,6 +81,20 @@ export const CartSummary = () => {
           =
           <div className={styles["total-price"]}>
             {Math.round(value.amount * value.price * 100) / 100}
+          </div>
+          <div className={styles["adjust-cart"]}>
+            <button
+              style={{ backgroundColor: "red" }}
+              onClick={deleteItemHandler.bind(this, key)}
+            >
+              -
+            </button>
+            <button
+              style={{ backgroundColor: "green" }}
+              onClick={appendItemHandler.bind(this, key)}
+            >
+              +
+            </button>
           </div>
         </div>
       </li>

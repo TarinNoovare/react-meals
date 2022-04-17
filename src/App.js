@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import { NavBar } from "./NavBar/NavBar";
-import { OpenPhrase } from "./OpenPhrase/OpenPhrase";
+import OpenPhrase from "./OpenPhrase/OpenPhrase";
 import { Menu } from "./Menu/Menu";
 import { CartSummary } from "./CartSummary/CartSummary";
 import { ErrorModal } from "./ErrorModal/ErrorModal";
