@@ -50,6 +50,8 @@ function App() {
 
   const [addCartAnimation, setAddCartAnimation] = useState(false);
 
+  const maximumNumberPerMenu = 20;
+
   useEffect(() => {
     const identifier = setTimeout(() => {
       console.log("Current In Cart");
@@ -75,6 +77,7 @@ function App() {
           setShowErrorModal,
           addCartAnimation,
           setAddCartAnimation,
+          maximumNumberPerMenu
         }}
       >
         <NavBar />

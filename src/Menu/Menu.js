@@ -11,6 +11,7 @@ export const Menu = (props) => {
     setCurrentInCart,
     setShowErrorModal,
     setAddCartAnimation,
+    maximumNumberPerMenu,
   } = useContext(CartContext);
 
   const [currentMenuSelect, setCurrentMenuSelect] = useState(menuList);
@@ -42,14 +43,16 @@ export const Menu = (props) => {
   };
 
   const addToCartHandler = (key) => {
-    if (currentInCart[key]["amount"] === 99) {
+    if (currentInCart[key]["amount"] === maximumNumberPerMenu) {
     } else if (currentMenuSelect[key]["amount"] <= 0) {
       setShowErrorModal("Amount must be more than 0");
     } else if (
       currentMenuSelect[key]["amount"] + currentInCart[key]["amount"] >
-      99
+      maximumNumberPerMenu
     ) {
-      setShowErrorModal("Amount for Each Menu cannot exceed 99");
+      setShowErrorModal(
+        `Amount for Each Menu cannot exceed ${maximumNumberPerMenu}`
+      );
     } else {
       setAddCartAnimation(true);
       setCurrentInCart((prevState) => {
@@ -78,6 +81,12 @@ export const Menu = (props) => {
     }
   };
 
+  const handleKeyDown = (key, event) => {
+    if (event.key === "Enter") {
+      addToCartHandler(key);
+    }
+  };
+
   const menuListComponent = [];
   for (const [key, value] of Object.entries(currentMenuSelect)) {
     menuListComponent.push(
@@ -89,18 +98,25 @@ export const Menu = (props) => {
         </div>
         <div className={styles["add-to-cart"]}>
           <div className={styles["amount"]}>
-            <label>Amount</label>
-            <input
-              type="number"
-              value={value.amount}
-              onChange={inputMenuHandler.bind(this, key)}
-            />
+            <label>Amount :</label>
+            {currentInCart[key]["amount"] < maximumNumberPerMenu ? (
+              <input
+                type="number"
+                value={value.amount}
+                onChange={inputMenuHandler.bind(this, key)}
+                onKeyDown={handleKeyDown.bind(this, key)}
+              />
+            ) : (
+              "Full"
+            )}
           </div>
           <button
             type="submit"
             onClick={addToCartHandler.bind(this, key)}
             className={`${
-              currentInCart[key]["amount"] < 99 ? "" : styles["unable"]
+              currentInCart[key]["amount"] < maximumNumberPerMenu
+                ? ""
+                : styles["unable"]
             }`}
           >
             + Add

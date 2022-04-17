@@ -15,6 +15,7 @@ export const CartSummary = () => {
     showCartSummary,
     setShowCartSummary,
     numberOfCart,
+    maximumNumberPerMenu
   } = useContext(CartContext);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export const CartSummary = () => {
   };
 
   const appendItemHandler = (key) => {
-    if (currentInCart[key]["amount"] < 99) {
+    if (currentInCart[key]["amount"] < maximumNumberPerMenu) {
       setCurrentInCart((prevState) => {
         return {
           ...prevState,
@@ -93,7 +94,7 @@ export const CartSummary = () => {
             </button>
             <button
               className={`${styles["add"]} ${
-                value.amount < 99 ? "" : styles["unable"]
+                value.amount < maximumNumberPerMenu ? "" : styles["unable"]
               }`}
               onClick={appendItemHandler.bind(this, key)}
             >
